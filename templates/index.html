@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Traffic Violation Detector</title>
+    <style>
+      body { font-family: system-ui, Arial, sans-serif; margin: 2rem; background: #0b1220; color: #e6edf3; }
+      .card { background: #111827; border: 1px solid #263040; border-radius: 12px; padding: 24px; max-width: 720px; }
+      h1 { margin-top: 0; }
+      .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .opt { background: #0f172a; border: 1px dashed #334155; padding: 16px; border-radius: 10px; }
+      .muted { color: #9aa6b2; }
+      input[type=file] { padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; width: 100%; color: #e6edf3; }
+      button { background: #2563eb; color: white; border: 0; padding: 12px 16px; border-radius: 8px; cursor: pointer; }
+      button:disabled { background: #1e3a8a; cursor: not-allowed; }
+      .note { font-size: 0.9rem; }
+      .alert { padding: 10px 12px; background: #7c2d12; color: #fff; border-radius: 6px; margin-bottom: 1rem; display: none; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Red Light Violation Detection</h1>
+      <p class="muted">Upload a traffic video to detect red light violations. Processing happens server-side and returns an annotated MP4.</p>
+      <div class="grid">
+        <div class="opt">
+          <h3>1) Live Capture</h3>
+          <p class="muted">Coming soon.</p>
+          <div style="margin-top: 8px">
+            <a href="/run-sample"><button type="button">Run Sample (Traffic_video.mp4)</button></a>
+          </div>
+        </div>
+        <div class="opt">
+          <h3>2) Upload Video</h3>
+          <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+            <input id="video" type="file" name="video" accept="video/*" required />
+            <div class="note muted">Supported: MP4, AVI, MOV, MKV</div>
+            <div style="margin-top: 12px">
+              <button id="btn" type="submit">Upload & Run</button>
+            </div>
+          </form>
+          <div id="alert" class="alert">Processing… This can take a few minutes for longer videos. Please don't close the page.</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById('uploadForm');
+      const btn = document.getElementById('btn');
+      const alertBox = document.getElementById('alert');
+      form.addEventListener('submit', () => {
+        btn.disabled = true;
+        alertBox.style.display = 'block';
+      });
+    </script>
+  </body>
+  </html>

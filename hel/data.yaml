@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['helmet']
+
+roboflow:
+  workspace: wdad
+  project: helmet-zh5n1
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/wdad/helmet-zh5n1/dataset/1

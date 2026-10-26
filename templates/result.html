@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Detection Result</title>
+    <style>
+      body { font-family: system-ui, Arial, sans-serif; margin: 2rem; background: #0b1220; color: #e6edf3; }
+      .card { background: #111827; border: 1px solid #263040; border-radius: 12px; padding: 24px; max-width: 960px; }
+      h1 { margin-top: 0; }
+      .muted { color: #9aa6b2; }
+      video { width: 100%; border-radius: 10px; border: 1px solid #334155; background: #000; }
+      .row { display: flex; gap: 20px; flex-wrap: wrap; }
+      .chip { background: #0f172a; border: 1px solid #334155; border-radius: 999px; padding: 8px 12px; display: inline-block; }
+      .snap { width: 220px; height: auto; border-radius: 8px; border: 1px solid #334155; }
+      a { color: #93c5fd; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Detection Result</h1>
+      <p class="muted">Red-light Violations: <span class="chip">{{ violations }}</span>
+        &nbsp;|&nbsp; No-Helmet: <span class="chip">{{ helmet_violations or 0 }}</span>
+        &nbsp;|&nbsp; Triple Riders: <span class="chip">{{ triple_violations or 0 }}</span>
+      </p>
+      <video controls preload="metadata">
+        <source src="{{ video_src }}" />
+        Your browser does not support embedded video.
+      </video>
+
+      {% if snapshots and snapshots|length > 0 %}
+      <h3>Red-light Violation Snapshots</h3>
+      <div class="row">
+        {% for snap in snapshots %}
+          <div>
+            <img class="snap" src="/{{ snap }}" alt="snapshot" />
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if helmet_snapshots and helmet_snapshots|length > 0 %}
+      <h3>No-Helmet Snapshots</h3>
+      <div class="row">
+        {% for snap in helmet_snapshots %}
+          <div>
+            <img class="snap" src="/{{ snap }}" alt="no-helmet" />
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if triple_snapshots and triple_snapshots|length > 0 %}
+      <h3>Triple Rider Snapshots</h3>
+      <div class="row">
+        {% for snap in triple_snapshots %}
+          <div>
+            <img class="snap" src="/{{ snap }}" alt="triple-rider" />
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <p style="margin-top: 18px"><a href="/">Upload another video</a></p>
+    </div>
+  </body>
+  </html>
