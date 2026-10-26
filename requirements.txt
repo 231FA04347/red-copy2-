@@ -1,0 +1,9 @@
+ultralytics
+opencv-python
+numpy
+Flask
+moviepy
+imageio-ffmpeg
+torch
+torchvision
+lapx
